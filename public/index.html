@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Math Battle - Марафон математики</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Логін -->
+    <div id="login" class="login-screen">
+      <div class="login-box">
+        <h1 class="logo">⚡ Math Battle ⚡</h1>
+        <p class="tagline">Марафон математики - перемогай у часі!</p>
+        
+        <div class="form-group">
+          <input id="name" placeholder="Введи ім'я (або нік)" class="input-field" />
+          <input id="email" placeholder="Email (для реєстрації/логіну)" class="input-field" />
+          <input id="password" type="password" placeholder="Пароль (для реєстрації/логіну)" class="input-field" />
+        </div>
+
+        <div class="login-controls">
+          <button id="join" class="btn btn-primary">🚀 Грати як гість</button>
+          <button id="register" class="btn btn-secondary">Реєстрація</button>
+          <button id="loginBtn" class="btn btn-secondary">Логін</button>
+          <a id="googleLogin" class="btn btn-google">🔐 Google</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Вибір рівня складності -->
+    <div id="difficulty-select">
+      <div class="difficulty-box">
+        <h1 class="logo">⚡ Math Battle ⚡</h1>
+        <p class="subtitle">Вибери рівень складності</p>
+        
+        <div class="difficulty-grid">
+          <div class="difficulty-card easy" data-level="easy">
+            <div class="difficulty-icon">🌱</div>
+            <div class="difficulty-name">ЛЕГКИЙ</div>
+            <div class="difficulty-desc">Прості приклади</div>
+            <div class="difficulty-range">1 - 50</div>
+          </div>
+
+          <div class="difficulty-card normal" data-level="normal">
+            <div class="difficulty-icon">⚔️</div>
+            <div class="difficulty-name">ЗВИЧАЙНИЙ</div>
+            <div class="difficulty-desc">Помірна складність</div>
+            <div class="difficulty-range">1 - 100</div>
+          </div>
+
+          <div class="difficulty-card hard" data-level="hard">
+            <div class="difficulty-icon">🔥</div>
+            <div class="difficulty-name">СКЛАДНИЙ</div>
+            <div class="difficulty-desc">Суперскладні приклади</div>
+            <div class="difficulty-range">1 - 200</div>
+          </div>
+        </div>
+
+        <button id="back-to-menu" class="btn btn-secondary">← Назад</button>
+      </div>
+    </div>
+
+    <!-- Гра -->
+    <div id="game">
+      <!-- Шапка -->
+      <header class="game-header">
+        <div class="header-left">
+          <h1 class="logo-small">⚡ Math Battle</h1>
+          <span id="player-name" class="player-badge"><strong id="display-name">Guest</strong></span>
+        </div>
+        <div class="header-right">
+          <div class="level-badge" id="level-badge">ЛЕГКИЙ</div>
+          <button id="toggle-leaderboard" class="btn-icon" aria-label="Toggle leaderboard">🏆</button>
+          <button id="quit-game" class="btn-icon">⚙️</button>
+        </div>
+      </header>
+
+      <!-- Основна область гри -->
+      <main class="game-container">
+        <div class="question-section">
+          <!-- Прогрес -->
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-text" id="progress-text">0/10</div>
+          </div>
+
+          <!-- Питання -->
+          <div class="question-box">
+            <div id="question" class="question-text">Натисни "Почати"</div>
+            <div class="timer-display" id="timer-display">
+              <svg class="timer-circle" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" class="timer-bg"></circle>
+                <circle cx="50" cy="50" r="45" class="timer-circle-progress" id="timer-progress"></circle>
+              </svg>
+              <div class="timer-text">
+                <span id="timer" class="timer-value">--</span>
+                <span class="timer-label">сек</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ввід відповіді -->
+          <div class="answer-section">
+            <input id="answer" type="text" pattern="-?[0-9]*" placeholder="Введи відповідь..." class="answer-input" inputmode="text" />
+            <div class="answer-controls">
+              <button id="submit" class="btn btn-success">✓ Відправити</button>
+              <button id="new" class="btn btn-primary">▶ Почати / Далі</button>
+            </div>
+          </div>
+
+          <!-- Статус -->
+          <div id="status-message" class="status-message"></div>
+        </div>
+
+        <!-- Сайдбар з лідербордом -->
+        <aside class="sidebar">
+          <div class="sidebar-section">
+            <h3>Рекорди (<span id="level-name">ЗВИЧАЙНИЙ</span>)</h3>
+            <ol id="leaderboard" class="leaderboard-list"></ol>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Результати гри -->
+    <div id="results">
+      <div class="results-box">
+        <h1>🎉 Гра завершена!</h1>
+        
+        <div class="results-stats">
+          <div class="stat-item">
+            <div class="stat-label">Гравець</div>
+            <div class="stat-value" id="result-name">Guest</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Рівень</div>
+            <div class="stat-value" id="result-level">-</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Правильні</div>
+            <div class="stat-value" id="result-correct">0/10</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Чистий час</div>
+            <div class="stat-value" id="result-clean-time">0.00 с</div>
+          </div>
+          <div class="stat-item" id="penalty-stat" style="display:none;">
+            <div class="stat-label">⚠️ Штраф за помилки</div>
+            <div class="stat-value" id="result-penalty" style="color: #ff6b6b;">+0 с</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Загальний час</div>
+            <div class="stat-value" id="result-time" style="font-weight: bold; color: #4ecdc4;">0.00 с</div>
+          </div>
+        </div>
+
+        <div class="results-leaderboard">
+          <h3>📊 Рекорди рівня</h3>
+          <ol id="result-leaderboard" class="leaderboard-list"></ol>
+        </div>
+
+        <div id="guest-register-notice" style="display:none;" class="guest-notice">
+          <p>💡 <strong>Грав(ла) як гість?</strong> Зареєструйся, щоб побачити себе в таблиці рекордів!</p>
+          <button id="register-from-results" class="btn btn-primary">📝 Зареєструватись</button>
+        </div>
+
+        <div class="results-actions">
+          <button id="play-again" class="btn btn-primary">🔄 Грати ще</button>
+          <button id="back-menu" class="btn btn-secondary">🏠 В меню</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
