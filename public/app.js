@@ -338,15 +338,19 @@ answerInput.addEventListener('keypress', (e) => {
   }
 });
 
-// Автоматичний скрол до поля вводу при фокусі (для мобільних)
+// Автоматичний скрол до питання при фокусі (для мобільних)
 answerInput.addEventListener('focus', () => {
   // Невелика затримка щоб клавіатура встигла відкритись
   setTimeout(() => {
-    answerInput.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'center',
-      inline: 'nearest'
-    });
+    // Прокручуємо до блоку з питанням, щоб було видно питання + input + кнопку
+    const questionBox = document.querySelector('.question-box');
+    if (questionBox) {
+      questionBox.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
   }, 300);
 });
 
