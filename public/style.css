@@ -472,7 +472,6 @@ body {
 
 .leaderboard-list li.me {
   background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-  color: white;
   font-weight: bold;
 }
 

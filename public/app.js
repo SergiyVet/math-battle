@@ -278,6 +278,18 @@ function showQuestion(q) {
   statusMessage.textContent = '';
   newBtn.textContent = currentQuestionIndex === 0 ? '▶ Почати' : '▶ Далі';
   newBtn.disabled = false;
+  
+  // Автоматичний скрол до питання (для кожного нового питання на мобільному)
+  setTimeout(() => {
+    const questionBox = document.querySelector('.question-box');
+    if (questionBox) {
+      questionBox.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+  }, 100);
 }
 
 // ========== ГЕРА - ГРАВЕЦЬ ==========
@@ -338,21 +350,8 @@ answerInput.addEventListener('keypress', (e) => {
   }
 });
 
-// Автоматичний скрол до питання при фокусі (для мобільних)
-answerInput.addEventListener('focus', () => {
-  // Невелика затримка щоб клавіатура встигла відкритись
-  setTimeout(() => {
-    // Прокручуємо до блоку з питанням, щоб було видно питання + input + кнопку
-    const questionBox = document.querySelector('.question-box');
-    if (questionBox) {
-      questionBox.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start',
-        inline: 'nearest'
-      });
-    }
-  }, 300);
-});
+// Скрол при фокусі вже не потрібен - скрол відбувається в showQuestion()
+// answerInput.addEventListener('focus', ...) - видалено
 
 function submitAnswer(answer) {
   const time = Date.now() - gameStartTime;
