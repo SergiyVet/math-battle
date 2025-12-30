@@ -274,22 +274,26 @@ socket.on('question', (q) => {
 function showQuestion(q) {
   questionDiv.textContent = q.text;
   answerInput.value = '';
-  answerInput.focus();
   statusMessage.textContent = '';
   newBtn.textContent = currentQuestionIndex === 0 ? '▶ Почати' : '▶ Далі';
   newBtn.disabled = false;
   
-  // Автоматичний скрол до питання (для кожного нового питання на мобільному)
+  // Фокусуємо input після короткої затримки
   setTimeout(() => {
-    const questionBox = document.querySelector('.question-box');
-    if (questionBox) {
-      questionBox.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start',
-        inline: 'nearest'
-      });
-    }
-  }, 100);
+    answerInput.focus();
+    
+    // Скролимо до питання після того як клавіатура відкриється
+    setTimeout(() => {
+      const questionSection = document.querySelector('.question-section');
+      if (questionSection) {
+        questionSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+    }, 400); // Більша затримка для клавіатури
+  }, 50);
 }
 
 // ========== ГЕРА - ГРАВЕЦЬ ==========
