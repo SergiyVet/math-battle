@@ -338,6 +338,18 @@ answerInput.addEventListener('keypress', (e) => {
   }
 });
 
+// Автоматичний скрол до поля вводу при фокусі (для мобільних)
+answerInput.addEventListener('focus', () => {
+  // Невелика затримка щоб клавіатура встигла відкритись
+  setTimeout(() => {
+    answerInput.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center',
+      inline: 'nearest'
+    });
+  }, 300);
+});
+
 function submitAnswer(answer) {
   const time = Date.now() - gameStartTime;
   const currentQ = questionsInGame[currentQuestionIndex];
