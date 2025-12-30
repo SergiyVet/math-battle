@@ -282,17 +282,14 @@ function showQuestion(q) {
   setTimeout(() => {
     answerInput.focus();
     
-    // Скролимо до питання після того як клавіатура відкриється
+    // Скролимо до кнопки "Відправити" після відкриття клавіатури
     setTimeout(() => {
-      const questionSection = document.querySelector('.question-section');
-      if (questionSection) {
-        questionSection.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start',
-          inline: 'nearest'
-        });
-      }
-    }, 400); // Більша затримка для клавіатури
+      submitBtn.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'end',  // Показуємо кнопку знизу екрану
+        inline: 'nearest'
+      });
+    }, 500); // Затримка для клавіатури
   }, 50);
 }
 
