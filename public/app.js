@@ -274,24 +274,27 @@ socket.on('question', (q) => {
 function showQuestion(q) {
   questionDiv.textContent = q.text;
   answerInput.value = '';
+  answerInput.focus();
   statusMessage.textContent = '';
   newBtn.textContent = currentQuestionIndex === 0 ? '▶ Почати' : '▶ Далі';
   newBtn.disabled = false;
-  
-  // Фокусуємо input після короткої затримки
-  setTimeout(() => {
-    answerInput.focus();
-    
-    // Скролимо до кнопки "Відправити" після відкриття клавіатури
-    setTimeout(() => {
-      submitBtn.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'end',  // Показуємо кнопку знизу екрану
-        inline: 'nearest'
-      });
-    }, 500); // Затримка для клавіатури
-  }, 50);
 }
+
+// Скрол при фокусі на input (для мобільних пристроїв)
+answerInput.addEventListener('focus', () => {
+  // Затримка для клавіатури
+  setTimeout(() => {
+    // Отримуємо позицію кнопки
+    const rect = submitBtn.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Скролимо так, щоб кнопка була видна
+    window.scrollTo({
+      top: scrollTop + rect.top - window.innerHeight + rect.height + 20,
+      behavior: 'smooth'
+    });
+  }, 600); // Більша затримка
+});
 
 // ========== ГЕРА - ГРАВЕЦЬ ==========
 newBtn.addEventListener('click', () => {
